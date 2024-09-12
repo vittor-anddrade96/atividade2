@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+</head>
+
+<body>
+
+    <?php
+    function converterDolar($valorEmDolar){
+        $cotacaoDolar = 1.81;
+
+        $valorEmReal = $valorEmDolar * $cotacaoDolar;
+        $valorEmRealArredondado = round($valorEmReal, 2);
+        return $valorEmRealArredondado;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $valorEmDolares = $_POST['valor'];
+        $valorEmReais = converterDolar($valorEmDolares);
+    } else {
+        $valorEmReais = '';
+    }
+    ?>
+
+    <h1>Conversor de Dólar para Real</h1>
+
+    <form method="post" action="">
+        <label for="valor">Digite o valor em dólares:</label>
+        <input type="number" id="valor" name="valor" required>
+        <button type="submit">Converter</button>
+    </form>
+
+    <?php if (!empty($valorEmReais)): ?>
+        <p>O valor em reais é: R$ <?= number_format($valorEmReais, 2, ',', '.'); ?></p>
+    <?php endif; ?>
+</body>
+
+</html>
